@@ -10,6 +10,8 @@ export class AppComponent implements OnInit{
   
   activeUsers: string[]; 
   inactiveUsers: string[];
+  activeToInactiveCounter: number;
+  inactiveToActiveCounter: number;
 
   constructor(private usersStateService: UsersStateService){ 
 
@@ -18,5 +20,16 @@ export class AppComponent implements OnInit{
   ngOnInit(){ 
     this.activeUsers = this.usersStateService.activeUsers;
     this.inactiveUsers = this.usersStateService.inactiveUsers;
+    this.activeToInactiveCounter = this.usersStateService.activeToInactiveCounter;
+    this.inactiveToActiveCounter = this.usersStateService.inactiveToActiveCounter;
+
+    this.usersStateService.onSetToActive.subscribe( () =>{ 
+      this.inactiveToActiveCounter++;
+    })
+
+    this.usersStateService.onSetToInactive.subscribe( () =>{ 
+      this.activeToInactiveCounter++;
+    })
+
   }
 }

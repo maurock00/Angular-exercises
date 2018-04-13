@@ -15,13 +15,10 @@ export class ActiveUsersComponent implements OnInit {
 
   ngOnInit(){
     this.users = this.usersStateService.activeUsers;
-    this.usersStateService.onSetToActive.subscribe( (id: number) => { 
-      this.usersStateService.activeUsers.push(this.usersStateService.inactiveUsers[id]);
-    }); 
   }
 
   setToInactive(id: number) {
-    this.usersStateService.onSetToInactive.emit(id);
-    this.users.splice(id, 1);
+    this.usersStateService.setToInactive(id);
+    this.usersStateService.onSetToInactive.emit();
   }
 }
